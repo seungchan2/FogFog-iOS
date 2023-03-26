@@ -24,7 +24,6 @@ final class DefaultLoginCoordinator: LoginCoordinator {
     }
     
     func showLoginViewController() {
-        
     }
     
     func connectMapCoordinator() {
@@ -32,6 +31,11 @@ final class DefaultLoginCoordinator: LoginCoordinator {
         let mapCoordinator = DefaultMapCoordinator(self.navigationController)
         mapCoordinator.start()
         self.childCoordinators.append(mapCoordinator)
+        let locationService = DefaultLocationService()
+        let mapViewModel = MapViewModel(coordinator: self, locationService: locationService)
+        let mapViewController = MapViewController(viewModel: mapViewModel)
+        changeAnimation()
+        navigationController.viewControllers = [mapViewController]
     }
     
     func finish() {
